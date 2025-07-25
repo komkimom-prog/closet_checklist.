@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>우아한 옷장 정리 현실 가이드</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f1eb 0%, #e8d5c9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1em;
+            font-weight: 300;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid;
+        }
+        
+        .section.mindset {
+            background: #fef7f0;
+            border-left-color: #e74c3c;
+        }
+        
+        .section.size-check {
+            background: #f0f7ff;
+            border-left-color: #3498db;
+        }
+        
+        .section.category {
+            background: #f0fff4;
+            border-left-color: #27ae60;
+        }
+        
+        .section.criteria {
+            background: #faf0ff;
+            border-left-color: #9b59b6;
+        }
+        
+        .section.final {
+            background: #fff9e6;
+            border-left-color: #f39c12;
+        }
+        
+        .section h2 {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section h3 {
+            font-size: 1.2em;
+            color: #34495e;
+            margin: 20px 0 15px 0;
+            font-weight: 600;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(255,255,255,1);
+            transform: translateX(5px);
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #bdc3c7;
+            border-radius: 4px;
+            margin-right: 12px;
+            margin-top: 2px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox:hover {
+            border-color: #3498db;
+        }
+        
+        .checkbox.checked {
+            background: #3498db;
+            border-color: #3498db;
+        }
+        
+        .checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            position: absolute;
+            top: -2px;
+            left: 3px;
+            font-size: 14px;
+        }
+        
+        .checklist-text {
+            flex: 1;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        
+        .warning-box {
+            background: #fff5f5;
+            border: 2px solid #fed7d7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .warning-box h4 {
+            color: #c53030;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .success-box {
+            background: #f0fff4;
+            border: 2px solid #c6f6d5;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .success-box h4 {
+            color: #276749;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tip-box {
+            background: #fffaf0;
+            border: 2px solid #fbd38d;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .tip-box h4 {
+            color: #744210;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .category-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .progress-bar {
+            background: #ecf0f1;
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            height: 100%;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .footer {
+            background: #34495e;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .footer .quote {
+            font-size: 1.1em;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .footer .author {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .categories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👗 66, 77 사이즈 옷장 정리 현실 가이드</h1>
+            <div class="subtitle">"이제 나를 속이지 말고 시작하기"</div>
+        </div>
+        
+        <div class="content">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div id="progressText" style="text-align: center; margin-bottom: 30px; color: #7f8c8d;">진행률: 0%</div>
+            
+            <div class="section mindset">
+                <h2>🤔 시작 전 마음가짐 체크</h2>
+                <h3>✅ 현실 인정하기</h3>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text">"언젠가 빠지면 입을 거야" 생각 그만하기 (언젠가는 영원히 오지 않음)</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text">"돈 아까워서 못 버려" 마음 정리하기 (이미 쓴 돈은 돌아오지 않음)</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text">"비싸게 산 거라서..." 핑계 중단하기 (비싼 옷도 안 맞으면 의미 없음)</div>
+                </div>
+            </div>
+            
+            <div class="section size-check">
+                <h2>📏 사이즈 현실 체크 단계</h2>
+                <h3>1단계: 잔혹한 시도해보기</h3>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text"><strong>청바지 웨이스트 체크</strong>: 단추 채워지는가? <em>(힘들게 채워지면 OUT)</em></div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text"><strong>원피스 지퍼 체크</strong>: 목숨 걸고 올려야 하는가? <em>(그럼 OUT)</em></div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text"><strong>블라우스 가슴 체크</strong>: 단추 사이 벌어짐 현상 있는가? <em>(있으면 OUT)</em></div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text"><strong>바지 허벅지 체크</strong>: 앉을 때 터질 것 같은가? <em>(그럼 당연히 OUT)</em></div>
+                </div>
+                
+                <h3>2단계: 브랜드별 현실 확인</h3>
+                <div class="tip-box">
+                    <h4>💡 브랜드별 사이즈 현실</h4>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text"><strong>H&M 66</strong>: 실제론 77 느낌 (유럽 사이즈의 함정)</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text"><strong>유니클로 L</strong>: 진짜 66에 가까움 (일본 사이즈의 현실)</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text"><strong>동대문 66</strong>: 브랜드마다 천차만별 (복불복의 세계)</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text"><strong>해외직구 M</strong>: 한국 77~88 각오하기</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section category">
+                <h2>🔍 카테고리별 정리 가이드</h2>
+                
+                <div class="categories">
+                    <div class="category-card">
+                        <h4>👖 하의류 정리법</h4>
+                        <div class="warning-box">
+                            <h4>❌ 버려야 할 것들</h4>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">허리 단추 채우려고 숨 참아야 하는 바지</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">앉으면 등이 보이는 청바지</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">"조금만 더 빼면 입을 수 있을 것 같은" 바지 (3개월 이상 시도 중이면 OUT)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="success-box">
+                            <h4>✅ 남길 가치 있는 것들</h4>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">편하게 앉을 수 있는 바지</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">허리 조절 가능한 바지</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">신축성 좋은 레깅스 (단, 너무 늘어난 건 OUT)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category-card">
+                        <h4>👚 상의류 정리법</h4>
+                        <div class="warning-box">
+                            <h4>❌ 버려야 할 것들</h4>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">가슴이 답답하거나 등이 당기는 셔츠</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">팔 올리면 배가 보이는 크롭 티</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">"날씬해 보이겠지" 하고 산 타이트한 니트 (현실은 볼록)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="success-box">
+                            <h4>✅ 남길 가치 있는 것들</h4>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">어깨선이 맞는 셔츠/블라우스</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checkbox" onclick="toggleCheck(this)"></div>
+                                <div class="checklist-text">적당히 여유 있는 니트</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section criteria">
+                <h2>🎯 현실적 정리 기준</h2>
+                
+                <h3>⏰ 시간 기준</h3>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text"><strong>1년 이상 안 입은 옷</strong>: 99% 앞으로도 안 입음 (버려)</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text"><strong>2년 이상 안 입은 옷</strong>: 100% 영영 안 입음 (즉시 버려)</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text"><strong>태그 달린 채로 1년</strong>: 이미 실패작 인증 (과감히 버려)</div>
+                </div>
+                
+                <h3>🪞 거울 앞 현실 체크</h3>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text"><strong>5초 안에 결정 안 나는 옷</strong>: 이미 탈락</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text"><strong>입고 나서 계속 신경 쓰이는 옷</strong>: 스트레스 제조기</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-text"><strong>"이거 어때?" 물어보고 싶은 옷</strong>: 이미 확신 없음의 증거</div>
+                </div>
+            </div>
+            
+            <div class="section final">
+                <h2>🏆 최종 목표</h2>
+                <div class="tip-box">
+                    <h4>✨ "적지만 확실한 옷장"</h4>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text">모든 옷이 내 몸에 맞음</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text">어떤 조합이든 예쁨</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text">5분 안에 코디 완성</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text">입고 나서 자신감 UP</div>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>💭 나를 속이지 말기 - 금지 문구들</h4>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text">❌ "다이어트 성공하면 입을 거야"</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text">❌ "특별한 날 입을 수도 있어"</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox" onclick="toggleCheck(this)"></div>
+                        <div class="checklist-text">❌ "돈 아까워서 못 버리겠어"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="quote">"옷장 정리는 자기 현실 정리입니다. 가혹하지만 정직하게, 그래야 진짜 멋진 옷장이 탄생해요!"</div>
+            <div class="author">- 우아언니</div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleCheck(checkbox) {
+            checkbox.classList.toggle('checked');
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            const checkedBoxes = document.querySelectorAll('.checkbox.checked');
+            const progress = (checkedBoxes.length / checkboxes.length) * 100;
+            
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `진행률: ${Math.round(progress)}%`;
+            
+            if (progress === 100) {
+                setTimeout(() => {
+                    alert('🎉 축하합니다! 옷장 정리 체크리스트를 모두 완성하셨네요! 이제 진짜 우아한 옷장의 주인이 되셨습니다!');
+                }, 500);
+            }
+        }
+        
+        // 인쇄용 스타일 추가
+        window.addEventListener('beforeprint', function() {
+            document.body.style.background = 'white';
+        });
+    </script>
+</body>
+</html>
